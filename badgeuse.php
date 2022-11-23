@@ -9,11 +9,10 @@
  <div id="content">
  <!-- tester si l'utilisateur est connecté -->
  <?php
-header('Access-Control-Allow-Origin: *');
+//header('Access-Control-Allow-Origin: *');
 include_once 'functions.php';
  session_start();
+ $user = $_SESSION['name'];
  // afficher un message
  echo "Bonjour $user, bienvenue sur la badgeuse";
-var_dump($_COOKIE);
-var_dump($_SESSION);
  ?>

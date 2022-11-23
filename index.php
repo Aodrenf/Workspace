@@ -10,7 +10,7 @@
  <?php
  header('Access-Control-Allow-Origin: *');
  session_start();
- if($_SESSION['name'] !== ""){
+ if($_SESSION['email'] !== ""){
  $user = $_SESSION['name'];
  }
  include_once 'functions.php';

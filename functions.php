@@ -2,7 +2,7 @@
 
 function cors($SESSION)
 {
-  if(isset($_SESSION['name']))
+  if(isset($_SESSION['email']))
  {
   $servername = "localhost";
   $username = "root"; 
@@ -10,11 +10,11 @@ function cors($SESSION)
   $dbName = "badgeuse";
   $db = mysqli_connect($servername, $username, $password, $dbName)
   or die('could not connect to database');
-  $login = $_SESSION['name'];
-  $req = "SELECT count(name) FROM users where name= '".$login."'";
+  $login = $_SESSION['email'];
+  $req = "SELECT count(email) FROM users where email= '".$login."'";
   $exec_req = mysqli_query($db,$req);
   $rep = mysqli_fetch_array($exec_req);
-  $exist = $rep['count(name)'];
+  $exist = $rep['count(email)'];
   if ($exist == 0)
   {
     echo "Vous n'existez pas dans la base de données";
@@ -22,11 +22,23 @@ function cors($SESSION)
   }
   else if ($exist == 1)
   {
-    echo "nous allons vous connecter a la badgeuse";
-    sleep(5);
     header('Location: badgeuse.php');
   }
   else echo "erreur inconnue";
  }
  
+}
+
+
+//fonction de hash
+function hashh($password)
+{
+//$password = "test";
+$prefix_salt = md5('pomme');
+$suffix_salt = md5('tableau');
+$pass = md5($password);
+$posthash = $prefix_salt . $pass . $suffix_salt;
+$algo = "sha256";
+$pass_hashed = hash($algo, $posthash, false);
+return $pass_hashed;
 }

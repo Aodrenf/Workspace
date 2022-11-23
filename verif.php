@@ -1,8 +1,10 @@
 <?php
+   header('Access-Control-Allow-Origin: *');
+   include_once ('functions.php');
 session_start();
-if(isset($_POST['name']) && isset($_POST['password']))
+if(isset($_POST['email']) && isset($_POST['password']))
 {
- // connexion à la base de données
+  //connexion à la base de données locale
  $servername = "localhost";
  $username = "root"; 
  $password = "";
@@ -11,36 +13,50 @@ if(isset($_POST['name']) && isset($_POST['password']))
  or die('could not connect to database');
  
 
- 
- // on applique les deux fonctions mysqli_real_escape_string et htmlspecialchars
- // pour éliminer toute attaque de type injection SQL et XSS
- $name = mysqli_real_escape_string($db,htmlspecialchars($_POST['name'])); 
+ /* connexion à la base de données 
+ $servername = "localhost";
+ $username = "root"; 
+ $password = "";
+ $dbName = "workspace";
+ $db = mysqli_connect($servername, $username, $password, $dbName)
+ or die('could not connect to database');
+ */
+ $name = NULL;
+ $email = mysqli_real_escape_string($db,htmlspecialchars($_POST['email'])); 
  $password = mysqli_real_escape_string($db,htmlspecialchars($_POST['password']));
- 
- if($name !== "" && $password !== "")
+ $pass = hashh($password);
+ if($email !== "" && $password !== "")
  {
  $requete = "SELECT count(*) FROM users where 
- name = '".$name."' and password = '".$password."' ";
+ email = '".$email."' and password = '".$pass."' ";
  $exec_requete = mysqli_query($db,$requete);
  $reponse = mysqli_fetch_array($exec_requete);
  $count = $reponse['count(*)'];
  if($count!=0) // nom d'utilisateur et mot de passe correctes
  {
+ $_SESSION['email'] = $email;
  $_SESSION['name'] = $name;
  header('Location: index.php');
  }
  else
  {
- header('Location: login.php?erreur=1'); // utilisateur ou mot de passe incorrect
+   var_dump($pass);
+   var_dump($email);
+   var_dump($count); 
+ //header('Location: login.php?erreur=1'); // utilisateur ou mot de passe incorrect
  }
  }
  else
  {
- header('Location: login.php?erreur=2'); // utilisateur ou mot de passe vide
+   var_dump($_SESSION['email']);
+   var_dump($email);
+ //header('Location: login.php?erreur=2'); // utilisateur ou mot de passe vide
  }
 }
 else
 {
- header('Location: login.php');
+   var_dump($email);
+   var_dump($_POST);
+ //header('Location: login.php');
 }
 mysqli_close($db); // fermer la connexion
