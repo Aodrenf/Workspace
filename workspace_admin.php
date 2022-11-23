@@ -17,5 +17,6 @@
  $SESSION = $_SESSION;
  ?>
 <br><br>
-<h2>Bienvenue<?php $user ?></h2>
+<h2>Bienvenue<?php $_SESSION['name'];?></h2>
+<br>
 <a href="conn_badgeuse.php">liens vers la badgeuse</a>
