@@ -53,23 +53,23 @@ if(isset($_POST['email']) && isset($_POST['password']))
    header('Location: workspace_admin.php');
   }
   else if ($_SESSION['role'] == 'user'){
-   header('Location: index.php');
+   header('Location: workspace_user.php');
   }
   else echo "role inconnu";
  }
  
  else
  {
- header('Location: login.php?erreur=1'); // utilisateur ou mot de passe incorrect
+ header('Location: index.php?erreur=1'); // utilisateur ou mot de passe incorrect
  }
  }
  else
  {
-  header('Location: login.php?erreur=2'); // utilisateur ou mot de passe vide
+  header('Location: index.php?erreur=2'); // utilisateur ou mot de passe vide
  }
 }
 else
 {
- header('Location: login.php');
+ header('Location: index.php');
 }
 mysqli_close($db); // fermer la connexion
