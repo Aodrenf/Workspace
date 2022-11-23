@@ -1,5 +1,6 @@
 <html>
  <head>
+    
  <meta charset="utf-8">
  <!-- importer le fichier de style -->
  <link rel="stylesheet" href="style.css" media="screen" type="text/css" />
@@ -8,13 +9,11 @@
  <div id="content">
  <!-- tester si l'utilisateur est connecté -->
  <?php
- header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: *');
+include_once 'functions.php';
  session_start();
- if($_SESSION['name'] !== ""){
- $user = $_SESSION['name'];
- }
- include_once 'functions.php';
- $SESSION = $_SESSION;
+ // afficher un message
+ echo "Bonjour $user, bienvenue sur la badgeuse";
+var_dump($_COOKIE);
+var_dump($_SESSION);
  ?>
-<br><br>
-<a href="conn_badgeuse.php">liens vers la badgeuse</a>
