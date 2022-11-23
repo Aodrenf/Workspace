@@ -4,23 +4,23 @@
 session_start();
 if(isset($_POST['email']) && isset($_POST['password']))
 {
-  //connexion à la base de données locale
+  /*//connexion à la base de données locale
  $servername = "localhost";
  $username = "root"; 
  $password = "";
  $dbName = "workspace";
+ $db = mysqli_connect($servername, $username, $password, $dbName)
+ or die('could not connect to database');*/
+ 
+
+ // connexion à la base de données 
+ $servername = "db5010944196.hosting-data.io";
+ $username = "dbu5496608"; 
+ $password = "kN9yLqby5AcFkf7$";
+ $dbName = "dbs9252931";
  $db = mysqli_connect($servername, $username, $password, $dbName)
  or die('could not connect to database');
  
-
- /* connexion à la base de données 
- $servername = "localhost";
- $username = "root"; 
- $password = "";
- $dbName = "workspace";
- $db = mysqli_connect($servername, $username, $password, $dbName)
- or die('could not connect to database');
- */
  $name = NULL;
  $mail = $_POST['email'];
  $email = mysqli_real_escape_string($db,htmlspecialchars($_POST['email'])); 

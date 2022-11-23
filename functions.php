@@ -4,10 +4,10 @@ function cors($SESSION)
 {
   if(isset($_SESSION['email']))
  {
-  $servername = "localhost";
-  $username = "root"; 
-  $password = "";
-  $dbName = "badgeuse";
+  $servername = "db5010944196.hosting-data.io";
+  $username = "dbu5496608"; 
+  $password = "kN9yLqby5AcFkf7$";
+  $dbName = "dbs9252931";
   $db = mysqli_connect($servername, $username, $password, $dbName)
   or die('could not connect to database');
   $login = $_SESSION['email'];
