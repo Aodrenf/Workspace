@@ -4,18 +4,28 @@
  <!-- importer le fichier de style -->
  <link rel="stylesheet" href="style.css" media="screen" type="text/css" />
  </head>
- <body style='background:#fff;'>
- <div id="content">
- <!-- tester si l'utilisateur est connecté -->
+ <body>
+ <div id="container">
+ <!-- zone de connexion -->
+ 
+ <form action="verif.php" method="POST">
+ <h1>Connexion</h1>
+ 
+ <label><b>Email</b></label>
+ <input type="text" placeholder="Entrer votre email" name="email" required>
+
+ <label><b>Mot de passe</b></label>
+ <input type="password" placeholder="Entrer le mot de passe" name="password" required>
+
+ <input type="submit" id='submit' value='LOGIN' >
  <?php
- header('Access-Control-Allow-Origin: *');
- session_start();
- if($_SESSION['email'] !== ""){
- $user = $_SESSION['name'];
+ if(isset($_GET['erreur'])){
+ $err = $_GET['erreur'];
+ if($err==1 || $err==2)
+ echo "<p style='color:red'>Utilisateur ou mot de passe incorrect</p>";
  }
- include_once 'functions.php';
- $SESSION = $_SESSION;
  ?>
-<br><br>
-<h2>Bienvenue<?php $user ?></h2>
-<a href="conn_badgeuse.php">liens vers la badgeuse</a>
+ </form>
+ </div>
+ </body>
+</html>
