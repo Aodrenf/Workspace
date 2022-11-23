@@ -13,10 +13,9 @@
  if($_SESSION['email'] !== ""){
  $user = $_SESSION['name'];
  }
- include_once 'functions.php';
+ include_once '../functions/functions.php';
  $SESSION = $_SESSION;
  ?>
 <br><br>
-<h2>Bienvenue<?php $_SESSION['name'];?></h2>
-<br>
-<a href="conn_badgeuse.php">liens vers la badgeuse</a>
+<h2>Bienvenue<?php $user ?></h2>
+<a href="../config/conn_badgeuse.php">liens vers la badgeuse</a>

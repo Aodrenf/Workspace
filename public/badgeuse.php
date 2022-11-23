@@ -10,7 +10,7 @@
  <!-- tester si l'utilisateur est connecté -->
  <?php
 //header('Access-Control-Allow-Origin: *');
-include_once 'functions.php';
+include_once '../functions/functions.php';
  session_start();
  $user = $_SESSION['name'];
  // afficher un message

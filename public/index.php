@@ -8,7 +8,7 @@
  <div id="container">
  <!-- zone de connexion -->
  
- <form action="verif.php" method="POST">
+ <form action="../functions/verif.php" method="POST">
  <h1>Connexion</h1>
  
  <label><b>Email</b></label>
