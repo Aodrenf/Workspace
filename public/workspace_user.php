@@ -14,9 +14,8 @@
         if ($_SESSION['email'] !== "") {
             $user = $_SESSION['name'];
         }
-
-        $SESSION = $_SESSION;
         ?>
         <br><br>
-        <h2>Bienvenue<?php $user ?></h2>
+        <h2>Bienvenue<?php echo " $user <br> " ?></h2>
+        <br>
         <a href="../config/conn_badgeuse.php">liens vers la badgeuse</a>
