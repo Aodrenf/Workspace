@@ -9,7 +9,7 @@
     <div id="container">
         <!-- zone de connexion -->
 
-        <form action="../functions/function_verif.php" method="POST">
+        <form action="functions/function_verif.php" method="POST">
             <h1>Connexion</h1>
 
             <label><b>Email</b></label>
