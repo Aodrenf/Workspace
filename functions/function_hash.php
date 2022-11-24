@@ -1,8 +1,7 @@
 <?php
-
-function hash_pwd()
+//fonction de hash md5 puis sha256
+function hash_pwd($password)
 {
-    $password = "isbFgK#8P@akYqmF";
     $prefix_salt = md5('pomme');
     $suffix_salt = md5('tableau');
     $pass = md5($password);
@@ -11,6 +10,3 @@ function hash_pwd()
     $pass_hashed = hash($algo, $posthash, false);
     return $pass_hashed;
 }
-
-$test = hash_pwd();
-echo "$test";

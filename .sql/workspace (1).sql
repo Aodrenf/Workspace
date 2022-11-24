@@ -64,6 +64,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `surname`, `email`, `password`, `form`) VALUES
 (1, 'aodren', 'users', 'ao.user@gmail.com', '4f6515744fbe37e961bbba67050065e8180f959d63f2a9c59431fe3f5246241a', ''),
 (3, 'Jean', 'Valjean', 'jean.valjean@gmail.com', '17217648d9d043c0502915c2fbb8c3c7d2d5a2a615ce00e0d0c6ec836a7a02a7', '');
+(1, 'Julien', 'test', 'j.sindatry@contactmedia.fr','613fffe486ba273335b9b42d3deace80f555d0e3214a643bf369696637e869db', '');
 
 --
 -- Index pour les tables déchargées
