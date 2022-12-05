@@ -30,8 +30,8 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
   if ($email !== "" && $password !== "") {
     
-       // on regarde si le mail et le pwd existe dans la table inventory
-      $requete = "SELECT count(*) FROM inventory where 
+       // on regarde si le mail et le pwd existe dans la table form
+      $requete = "SELECT count(*) FROM form where 
     email = '" . $email . "' and password = '" . $pass . "' ";
       $exec_requete = mysqli_query($db, $requete);
       $reponse = mysqli_fetch_array($exec_requete);
@@ -54,30 +54,30 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
       $name = $rep['name'];
 
       // on recupere son role
-      $req2 = "SELECT */*'inventory_role'*/ FROM roles where 
+      $req2 = "SELECT */*'form_role'*/ FROM roles where 
       email_id = '" . $email_id . "'";
       $exec_req2 = mysqli_query($db, $req);
       $rep2 = mysqli_fetch_array($exec_req);
-      $inventory_role = $rep2['inventory_role'];
+      $form_role = $rep2['form_role'];
 
       
 
     if ($count != 0) {
-      $_SESSION['inventory_role'] = $inventory_role;
-      $_SESSION['inventory'] = true;
-      if ($_SESSION['inventory_role'] == '1000') {
-       header('Location: ../public/inventory_admin.php');
+      $_SESSION['form_role'] = $form_role;
+      $_SESSION['form'] = true;
+      if ($_SESSION['form_role'] == '1000') {
+       header('Location: ../public/form_admin.php');
 
-      } else if ($_SESSION['inventory_role'] == '1') {
-        header('Location: ../public/inventory_user.php');
+      } else if ($_SESSION['form_role'] == '1') {
+        header('Location: ../public/form_user.php');
       } else echo "role inconnu";
     } else {
 
 
-      header('Location: ../public/inventory.php?erreur=1'); // utilisateur ou mot de passe incorrect
+      header('Location: ../public/form.php?erreur=1'); // utilisateur ou mot de passe incorrect
     }
   } else {
-    header('Location: ../public/inventory.php?erreur=2'); // utilisateur ou mot de passe vide
+    header('Location: ../public/form.php?erreur=2'); // utilisateur ou mot de passe vide
   }
 } 
 
@@ -85,23 +85,23 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
 // si l'utilisateur est deja log sur le Workspace
 else if( ($_SESSION['workspace']) == true){
-    if(isset($_SESSION['inventory_role']))
+    if(isset($_SESSION['form_role']))
     {
-      if ($_SESSION['inventory_role'] == '1000') 
+      if ($_SESSION['form_role'] == '1000') 
       {
-       header('Location: ../public/inventory_admin.php');
+       header('Location: ../public/form_admin.php');
 
       } 
-      else if ($_SESSION['inventory_role'] == '1') 
+      else if ($_SESSION['form_role'] == '1') 
       {
-        header('Location: ../public/inventory_user.php');
+        header('Location: ../public/form_user.php');
       }
       else echo "role inconnu";
     }
   } else echo "vous n'avez pas de role attribué";
 
 
-    // a ajouter a inventory.php
+    // a ajouter a form.php
     //
     // if (isset($_GET['erreur'])) {
     //   $err = $_GET['erreur'];

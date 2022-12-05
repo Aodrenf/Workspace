@@ -21,7 +21,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     
        // on regarde si le mail et le pwd existe dans la db coté users
       $requete = "SELECT count(*) FROM users where 
-    email = '" . $email . "' and password = '" . $pass . "' ";
+      email = '" . $email . "' and password = '" . $pass . "' ";
       $exec_requete = mysqli_query($db, $requete);
       $reponse = mysqli_fetch_array($exec_requete);
       $count = $reponse['count(*)'];
@@ -33,25 +33,51 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
       $rep = mysqli_fetch_array($exec_req);
       $name = $rep['firstname'];
 
-      //on recupere le email_id
-      $req_id_inventory = "SELECT */*'email_id'*/ FROM inventory where 
-      email_id = '" . $email_id . "'";
-      $exec_req_id_inventory = mysqli_query($db, $req_inventory);
-      $rep_id_inventory = mysqli_fetch_array($exec_req_inventory);
-      $email_id_inventory = $rep_id_inventory['email_id'];
-      $exist_inventory = true; 
+      //on recupere le email_id du user dans la table users
+      $req_id = "SELECT */*'email_id'*/ FROM users where 
+      email = '" . $email . "'";
+      $exec_req_id = mysqli_query($db, $req_id);
+      $rep_id = mysqli_fetch_array($exec_req_id);
+      $email_id = $rep_id['id'];
 
+      // on verifie si le user existe dans inventory
+      $requete_inventory = "SELECT count(*) FROM inventory where 
+      email_id = '" . $email_id . "'";
+      $exec_requete_inventory = mysqli_query($db, $requete_inventory);
+      $reponse_inventory = mysqli_fetch_array($exec_requete_inventory);
+      $count_inventory = $reponse_inventory['count(*)'];
+      
+      // On va chercher le role du user dans la table role grace a son id
+      $req_role = "SELECT */*'email_id'*/ FROM roles where 
+      email_id = '" . $email_id . "'";
+      $exec_req_role = mysqli_query($db, $req_role);
+      $rep_role = mysqli_fetch_array($exec_req_role);
+      $workspace_role = $rep_role['workspace_role'];
+      $inventory_role = $rep_role['inventory_role'];
+      $badgeuse_role = $rep_role['badgeuse_role'];
+      $form_role = $rep_role['form_role'];
+
+
+      if ($count_inventory != 0){
+        $exist_inventory = true; 
+      }
     
     if ($count != 0) {
       $_SESSION['email'] = $email;
       $_SESSION['name'] = $name;
+      $_SESSION['email_id'] = $email_id;
+      $_SESSION['workspace_role'] = $workspace_role;
+      $_SESSION['inventory_role'] = $inventory_role;
+      $_SESSION['badgeuse_role'] = $badgeuse_role;
+      $_SESSION['form_role'] = $form_role;
+      $_SESSION['workspace'] = true;
       //$_SESSION['id_user']
-      if ($_SESSION['role'] == '1000') {
+      if ($_SESSION['workspace_role'] == '1000') {
        header('Location: ../public/workspace_admin.php');
 
-      } else if ($_SESSION['role'] == '1') {
+      } else if ($_SESSION['workspace_role'] == '1') {
         header('Location: ../public/workspace_user.php');
-      } else echo "role inconnu";
+      } else echo "role inconnu"; var_dump($_SESSION);
     } else {
 
 

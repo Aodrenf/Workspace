@@ -1,0 +1,45 @@
+<?php
+
+function editUser()
+    {
+        
+            $prenom = $_POST['firstname'];
+            $nom = $_POST['lastname']; 
+            $mail = $_POST['email'];
+            $pwd = $_POST['password'];
+            $badgeuse_role = $_POST['badgeuse_role'];
+            $workspace_role = $_POST['workspace_role']; 
+            $form_role = $_POST['form_role'];
+            $inventory_role = $_POST['inventory_role'];
+        
+            
+            try{
+                include_once('../config/env.php');
+                $servername = 'localhost'; $dbName = 'workspace';
+                $dbco = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
+                $dbco->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                
+                //on recuperer l'email_id de la nouvelle personne
+                $req_id = "SELECT */*'email_id'*/ FROM users where 
+                email = '" . $email . "'";
+                $exec_req_id = mysqli_query($db, $req_id);
+                $rep_id = mysqli_fetch_array($exec_req_id);
+                $email_id = $rep_id['id'];
+
+                //On prépare la requête et on l'exécute
+                $sth = $dbco->prepare("
+                  UPDATE Users
+                  SET mail='$mail'
+                  WHERE id='$email_id'
+                ");
+                $sth->execute();
+                
+                //On affiche le nombre d'entrées mise à jour
+                $count = $sth->rowCount();
+                print('Mise à jour de ' .$count. ' entrée(s)');
+            }
+                  
+            catch(PDOException $e){
+                echo "Erreur : " . $e->getMessage();
+            }
+    }

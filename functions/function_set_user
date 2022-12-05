@@ -1,0 +1,84 @@
+<?php
+
+function setUser()
+{
+    session_start();
+    
+
+    $prenom = $_POST['firstname'];
+    $nom = $_POST['lastname']; 
+    $mail = $_POST['email'];
+    $pwd = $_POST['password'];
+    $badgeuse_role = $_POST['badgeuse_role'];
+    $workspace_role = $_POST['workspace_role']; 
+    $form_role = $_POST['form_role'];
+    $inventory_role = $_POST['inventory_role'];
+    
+try{
+    include_once('../config/env.php');
+    $servername = 'localhost'; $dbName = 'workspace'; // sinon erreur
+    $dbco = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
+    $dbco->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    // on insere dans users ce qui nous servira pour la suite
+    $sth = $dbco->prepare("
+    INSERT INTO users (firstname, lastname, email)
+    VALUES (:firstname, :lastname, :email) 
+  ");
+    $sth->bindParam(':firstname', $prenom);
+    $sth->bindParam(':lastname', $nom);
+    $sth->bindParam(':email', $mail);
+    $sth->bindParam(':password', $pwd);
+    $sth->execute();
+
+    //on recuperer l'email_id de la nouvelle personne
+    $req_id = "SELECT */*'email_id'*/ FROM users where 
+    email = '" . $email . "'";
+    $exec_req_id = mysqli_query($db, $req_id);
+    $rep_id = mysqli_fetch_array($exec_req_id);
+    $email_id = $rep_id['id'];
+
+    // on insere dans form_user
+    $sth2 = $dbco->prepare("
+    INSERT INTO form_user (email_id, mail, password)
+    VALUES (:email_id, :email, :password) 
+  ");
+
+    $sth2->bindParam(':email_id', $email_id);
+    $sth2->bindParam(':email', $mail);
+    $sth2->bindParam(':password', $pwd);
+    $sth2->execute();
+    
+    // on insere dans form_user
+    $sth3 = $dbco->prepare("
+    INSERT INTO inventory_user (email_id, mail, password)
+    VALUES (:email_id, :email, :password) 
+  ");
+
+    $sth3->bindParam(':email_id', $email_id);
+    $sth3->bindParam(':email', $mail);
+    $sth3->bindParam(':password', $pwd);
+    $sth3->execute();
+
+    // on insere dans form_user
+    $sth4 = $dbco->prepare("
+    INSERT INTO roles (email_id, mail, password)
+    VALUES (:email_id, :badgeuse_role, :workspace_role, :form_role, :inventory_role) 
+  ");
+
+    $sth4->bindParam(':email_id', $email_id);
+    $sth4->bindParam(':badgeuse_role', $badgeuse_role);
+    $sth4->bindParam('workspace_role', $workspace_role);
+    $sth4->bindParam(':form_role', $form_role);
+    $sth4->bindParam(':inventory_role', $inventory_role);
+    $sth4->execute();
+
+
+    
+    echo "Parfait, tout s'est bien passé";
+}
+      
+catch(PDOException $e){
+    echo "Erreur : " . $e->getMessage();
+}
+}

@@ -1,4 +1,7 @@
-<?php echo "Bienvenue sur l'inventaire User";
+<?php
+session_start();
+$user = $_SESSION['name'];
+echo "Bienvenue dans l'inventaire $user";
 var_dump($_SESSION);
 if (isset($_GET['erreur'])) {
     $err = $_GET['erreur'];
