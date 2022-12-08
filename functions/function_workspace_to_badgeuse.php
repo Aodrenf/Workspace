@@ -11,7 +11,7 @@ function workspace_to_badgeuse($SESSION)
     $exist = $rep['count(email)'];
     if ($exist == 0) {
       echo "Vous n'existez pas dans la base de données" ;
-    } else if ($exist == 1) {
+    } else if ($exist == user) {
       header('Location: https://beta.badgeuse.app');
       //header('Location: ../public/badgeuse.php'); //connexion a la badgeuse en local
     } else echo "erreur inconnue";

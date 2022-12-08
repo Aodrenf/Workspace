@@ -18,8 +18,10 @@
         <br><br>
         <h2>Bienvenue<?php echo " $user" ?></h2>
         <br>
-        <a href="../config/conn_badgeuse.php">liens vers la badgeuse</a>
+        <a href="../config/conn_badgeuse.php">lien vers la badgeuse</a>
         <br><br>
         <a href="../config/conn_inventory.php">lien versl'inventaire</a>
+        <br><br><br>
+        <a href="../admin/management.php">lien vers la page admin</a>
     
         
