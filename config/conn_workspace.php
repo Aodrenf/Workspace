@@ -4,6 +4,7 @@
 
 //header('Access-Control-Allow-Origin: *');
 include('../functions/function_hash.php');
+
 session_start();
 if (isset($_POST['email']) && isset($_POST['password'])) {
   //connexion à la base de données
@@ -32,6 +33,13 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
       $exec_req = mysqli_query($db, $req);
       $rep = mysqli_fetch_array($exec_req);
       $name = $rep['firstname'];
+
+      // on recupere le name du user dans la db
+      $req2 = "SELECT * FROM users where 
+      email = '" . $email . "'";
+      $exec_req2 = mysqli_query($db, $req2);
+      $rep2 = mysqli_fetch_array($exec_req2);
+      $lastname = $rep2['lastname'];
 
       //on recupere le email_id du user dans la table users
       $req_id = "SELECT */*'email_id'*/ FROM users where 
@@ -64,7 +72,8 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     
     if ($count != 0) {
       $_SESSION['email'] = $email;
-      $_SESSION['name'] = $name;
+      $_SESSION['firstname'] = $name;
+      $_SESSION['lastname'] = $lastname;
       $_SESSION['email_id'] = $email_id;
       $_SESSION['workspace_role'] = $workspace_role;
       $_SESSION['inventory_role'] = $inventory_role;
@@ -72,11 +81,8 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
       $_SESSION['form_role'] = $form_role;
       $_SESSION['workspace'] = true;
       //$_SESSION['id_user']
-      if ($_SESSION['workspace_role'] == '1000') {
+      if ($_SESSION['workspace_role'] == '1000' || $_SESSION['workspace_role'] == '1' || $_SESSION['workspace_role'] == '3') {
        header('Location: ../public/workspace_admin.php');
-
-      } else if ($_SESSION['workspace_role'] == '1') {
-        header('Location: ../public/workspace_user.php');
       } else echo "role inconnu"; var_dump($_SESSION);
     } else {
 
@@ -90,3 +96,4 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
   header('Location: ../index.php');
 }
 mysqli_close($db); // fermer la connexion
+

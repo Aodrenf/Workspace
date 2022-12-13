@@ -1,7 +1,7 @@
 <?php 
 
 function delUser(){
-    include_once('../config/env.php');
+    include('../config/env.php');
     $_SESSION['modif_type'] ='deleted';
     $id = $_SESSION['user_id_edit'];
     $req = "DELETE FROM users where 
@@ -20,4 +20,6 @@ function delUser(){
     mysqli_query($db, $req4);
     //$exec_req5 = mysqli_query($db, $req)5;
 }
-header('Location: ../admin/management.php');
+delUser();
+$link = $_SESSION['del_link'];
+header("Location: ../admin/$link");

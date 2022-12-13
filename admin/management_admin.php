@@ -1,4 +1,4 @@
-<html><a href="create_user.php">Creation de user temporaire</a></html><?php
+<?php
 session_start();
 include('../functions/function_timer.php');
 if(!isset($_SESSION['timer']))
@@ -6,10 +6,20 @@ if(!isset($_SESSION['timer']))
     setTimer();
 };
 timer();
-if(isset($_POST['delete']))
+include('../functions/function_count_admin.php');
+if(isset($_POST['delete']) && $_SESSION['count'] > 1)
 {
     $_SESSION['modif_type'] = 'delete';
-}elseif(isset($_POST['edit']))
+} else if ($_SESSION['count'] = 1 && isset($_POST['delete']))
+{
+    echo'<script language=javascript>
+   alert(\'Vous ne pouvez pas supprimer le dernier admin !\');
+</script> ';
+    
+}
+    
+
+if(isset($_POST['edit']))
 {
     $_SESSION['modif_type'] = 'edit';
 }elseif(isset($_POST['create']))
@@ -24,7 +34,7 @@ if ($_SESSION['workspace'] == true) {
             header('Location: create_user.php');
         } elseif ($_SESSION['modif_type'] == 'delete') {
             $_SESSION['user_id_edit'] = $_POST['user_id'];
-            $_SESSION['del_link'] = 'management.php';
+            $_SESSION['del_link'] = 'management_admin.php';
             include('../functions/function_delete_user.php');
             unset($_POST['delete']);
             unset($_POST['del_link']);
@@ -33,6 +43,14 @@ if ($_SESSION['workspace'] == true) {
             header('Location: edit_user.php');
         }
     }
+
+    $firstname = $_SESSION['firstname'];
+    $lastname = $_SESSION['lastname'];
+    $role = $_SESSION['workspace_role'];
+    if ($role == 1000)
+        $role = 'Admin';
+    else
+        $role = 'Utilisateur';
 }else header('Location: ../index.php');?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -70,11 +88,11 @@ if ($_SESSION['workspace'] == true) {
                     <span class="material-symbols-sharp">dashboard</span>
                     <h4>Accueil</h4>
                 </a>
-                <a href="management_admin.php">
+                <a href="management_admin.php"  class="active">
                     <span class="material-symbols-sharp">admin_panel_settings</span>
                     <h4>Administrateurs</h4>
                 </a>
-                <a href="management.php" class="active">
+                <a href="management.php">
                     <span class="material-symbols-sharp">supervisor_account</span>
                     <h4>Utilisateurs</h4>
                 </a>
@@ -94,7 +112,7 @@ if ($_SESSION['workspace'] == true) {
         <!-- MIDDLE -->
         <section class="middle">
             <div class="header">
-                <h1><span class="material-symbols-sharp">supervisor_account</span> Gestion des Utilisateurs</h1>
+                <h1><span class="material-symbols-sharp">supervisor_account</span> Gestion des Admins</h1>
             </div>
             <!-- LIST ADMIN -->
             <div class="admin-user">
@@ -111,7 +129,7 @@ if ($_SESSION['workspace'] == true) {
                         <?php
                         
                         include_once('../functions/function_connect.php');
-                             $stmt = $sql->prepare("SELECT * FROM users NATURAL JOIN roles WHERE workspace_role = '1' or workspace_role ='3' ORDER BY `firstname` ASC");
+                             $stmt = $sql->prepare("SELECT * FROM users NATURAL JOIN roles WHERE workspace_role = '1000' ORDER BY `firstname` ASC");
                              $stmt->execute();
                              $users = $stmt->fetchAll();  
                              foreach($users as $user){

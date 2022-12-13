@@ -40,12 +40,15 @@
     <select name="form_role">
         <option value="admin">Admin</option>
         <option value="user" selected>User</option>
+        
     </select>
     <br>
     <label><b>Role inventaire</b></label>
     <select name="inventory_role">
         <option value="admin">Admin</option>
-        <option value="user" selected>User</option>
+        <option value="user" >User</option>
+        <option value="NULL" selected>NULL</option>
+
     </select>
     <br>
     <input type="submit" id='create_user' value='create_user'>
@@ -55,9 +58,14 @@
 </body>
 </html>
 <?php 
+include('../functions/function_timer.php');
+if(!isset($_SESSION['timer']))
+{
+    setTimer();
+};
+timer();
 if(isset($_POST))
 {
     include_once('../functions/function_set_user.php');
     setUser();
 }
-

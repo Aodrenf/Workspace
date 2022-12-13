@@ -65,12 +65,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     if ($count != 0) {
       $_SESSION['inventory_role'] = $inventory_role;
       $_SESSION['inventory'] = true;
-      if ($_SESSION['inventory_role'] == '1000') {
-       header('Location: ../public/inventory_admin.php');
-
-      } else if ($_SESSION['inventory_role'] == '1') {
-        header('Location: ../public/inventory_user.php');
-      } else echo "role inconnu";
+      header('Location: ../public/inventory.php');
     } else {
 
 
@@ -87,18 +82,10 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 else if( ($_SESSION['workspace']) == true){
     if(isset($_SESSION['inventory_role']))
     {
-      if ($_SESSION['inventory_role'] == '1000') 
-      {
-       header('Location: ../public/inventory_admin.php');
-
-      } 
-      else if ($_SESSION['inventory_role'] == '1') 
-      {
-        header('Location: ../public/inventory_user.php');
-      }
-      else echo "role inconnu";
+     header('Location: ../public/inventory.php');
     }
-  } else echo "vous n'avez pas de role attribué";
+} else
+  header('Location: ../public/wokspace_admin.php');
 
 
     // a ajouter a inventory.php

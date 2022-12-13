@@ -2,14 +2,25 @@
 <?php
 session_start();
 include_once('../functions/function_get_user.php');
-include_once('../functions/function_trad_role.php');
+include_once('../functions/function_itoa.php');
+include('../functions/function_timer.php');
+if(!isset($_SESSION['timer']))
+{
+    setTimer();
+};
+timer();
 if(isset($_POST))
 {
     include_once('../functions/function_edit_user.php');
     editUser();
 }
 getUser($_SESSION['user_id_edit']);
-tradRole();
+if($_SESSION['email'] == $_SESSION['get_email'])
+{
+    $_SESSION['edit_self'] = true;
+    
+}
+itoa();
 
 
 ?><!DOCTYPE html>
@@ -32,7 +43,7 @@ tradRole();
     <input type="text" placeholder="Entrer le mot de passe" name="firstname" value="<?php echo $_SESSION['get_firstname']?>" required>
     <br><br>
     <label><b>Mot de passe</b></label>
-    <input type="password" placeholder="Entrer le mot de passe" name="password" value="password" required>
+    <input type="password" placeholder="Entrer le mot de passe" name="password" placeholder="°°°°°°°°">
     <br><br>
     <label><b>Role workspace</b></label>
     <select name="workspace_role">
@@ -60,13 +71,15 @@ tradRole();
         <option value="<?php echo $_SESSION['get_inventory_role']?>" selected><?php echo $_SESSION['get_inventory_role']?></option>
         <option value="admin">admin</option>
         <option value="user">user</option>
+        <option value="NULL">NULL</option>
+
     </select>
     <BR></BR>
     <input type="submit" id='edit_user' value='edit_user'>
 </form>
     <br><br>
-    <a href="management.php">Retour à la zone de management</a>
+    <a href="management_admin.php">Retour à la zone de management</a>
 </body>
 </html>
-<?php
+
 

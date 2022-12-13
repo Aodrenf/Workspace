@@ -1,12 +1,12 @@
 <?php
 
-function tradRole()
+function itoa()
 {
-    if ($_SESSION['get_workspace_role'] == 1) {
+    if ($_SESSION['get_workspace_role'] == 1 || $_SESSION['workspace_role'] == 1) {
         $_SESSION['get_workspace_role'] = 'user';
-    } elseif ($_SESSION['get_workspace_role'] == 3) {
+    } elseif ($_SESSION['get_workspace_role'] == 3 || $_SESSION['workspace_role'] == 3) {
         $_SESSION['get_workspace_role'] = 'supervisor';
-    } elseif ($_SESSION['get_workspace_role'] == 1000) {
+    } elseif ($_SESSION['get_workspace_role'] == 1000 || $_SESSION['workspace_role'] == 1000) {
         $_SESSION['get_workspace_role'] = 'admin';
     } else {
         $_SESSION['get_workspace_role'] = "inconnu";
@@ -36,6 +36,8 @@ function tradRole()
         $_SESSION['get_inventory_role'] = 'user';
     } elseif ($_SESSION['get_inventory_role'] == 1000) {
         $_SESSION['get_inventory_role'] = 'admin';
+    }elseif ($_SESSION['get_inventory_role'] == 0) {
+        $_SESSION['get_inventory_role'] = 'NULL';
     } else {
         $_SESSION['get_inventory_role'] = "inconnu";
     }

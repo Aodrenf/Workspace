@@ -2,7 +2,7 @@
 
 function hash_pwd()
 {
-    $password = "test";
+    $password = "admin";
     $prefix_salt = md5('pomme');
     $suffix_salt = md5('tableau');
     $pass = md5($password);
