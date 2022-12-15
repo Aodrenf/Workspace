@@ -1,10 +1,21 @@
 <?php
-$firstname = $_SESSION['firstname'];
+if(isset($_SESSION['edit_self']))
+{
+    $firstname = $_SESSION['edit_self_firstname'];
+    $lastname = $_SESSION['edit_self_lastname'];
+    $workspace_role = $_SESSION['edit_self_workspace_role'];
+    $form_role = $_SESSION['edit_self_form_role'];
+    $badgeuse_role = $_SESSION['edit_self_badgeuse_role'];
+    $inventory_role = $_SESSION['edit_self_inventory_role'];
+}else{
+    $firstname = $_SESSION['firstname'];
 $lastname = $_SESSION['lastname'];
 $workspace_role = $_SESSION['workspace_role'];
 $form_role = $_SESSION['form_role'];
 $badgeuse_role = $_SESSION['badgeuse_role'];
 $inventory_role = $_SESSION['inventory_role'];
+}
+
 
 if ($workspace_role == 1000)
 {

@@ -1,6 +1,7 @@
 
 <?php
 session_start();
+var_dump($_SESSION);
 include_once('../functions/function_get_user.php');
 include_once('../functions/function_itoa.php');
 include('../functions/function_timer.php');
@@ -15,10 +16,19 @@ if(isset($_POST))
     editUser();
 }
 getUser($_SESSION['user_id_edit']);
-if($_SESSION['email'] == $_SESSION['get_email'])
+if($_SESSION['email'] == $_SESSION['get_email'] && isset($_POST['firstname']))
 {
     $_SESSION['edit_self'] = true;
-    
+    $_SESSION['edit_self_firstname'] = $_SESSION['get_firstname'];
+    $_SESSION['edit_self_lastname'] = $_SESSION['get_lastname'];
+    $_SESSION['edit_self_workspace_role'] = $_SESSION['get_workspace_role'];
+    $_SESSION['edit_self_badgeuse_role'] = $_SESSION['get_badgeuse_role'];
+    $_SESSION['edit_self_form_role'] = $_SESSION['get_form_role'];
+    $_SESSION['edit_self_inventory_role'] = $_SESSION['get_inventory_role'];
+    $_SESSION['edit_self_email'] = $_SESSION['get_email'];
+}
+if ($_SESSION['email'] != $_SESSION['get_email'] && isset($_POST['firstname'])) {
+    unset($_SESSION['edit_self']);
 }
 itoa();
 
@@ -48,29 +58,35 @@ itoa();
     <label><b>Role workspace</b></label>
     <select name="workspace_role">
         <option value="<?php echo $_SESSION['get_workspace_role']?>" selected><?php echo $_SESSION['get_workspace_role']?></option>
-        <option value="admin">admin</option>
-        <option value="user">user</option>
+        <option value="admin">Admin</option>
+        <option value="user">Utilisateur</option>
+        <option value="supervisor">Responsable</option>
+
     </select>
     <br><br>
     <label><b>Role badgeuse</b></label>
     <select name="badgeuse_role">
         <option value="<?php echo $_SESSION['get_badgeuse_role']?>" selected><?php echo $_SESSION['get_badgeuse_role']?></option>
-        <option value="admin">admin</option>
-        <option value="user">user</option>
+        <option value="admin">Admin</option>
+        <option value="user">Utilisateur</option>
+        <option value="manager">Manager</option>
+        <option value="supervisor">Responsable</option>
+
+
     </select>
     <br><br>
     <label><b>Role form</b></label>
     <select name="form_role">
         <option value="<?php echo $_SESSION['get_form_role']?>" selected><?php echo $_SESSION['get_form_role']?></option>
-        <option value="admin">admin</option>
-        <option value="user">user</option>
+        <option value="admin">Admin</option>
+        <option value="user">Utilisateur</option>
     </select>
     <br><br>
     <label><b>Role inventaire</b></label>
     <select name="inventory_role">
         <option value="<?php echo $_SESSION['get_inventory_role']?>" selected><?php echo $_SESSION['get_inventory_role']?></option>
-        <option value="admin">admin</option>
-        <option value="user">user</option>
+        <option value="admin">Admin</option>
+        <option value="user">Utilisateur</option>
         <option value="NULL">NULL</option>
 
     </select>

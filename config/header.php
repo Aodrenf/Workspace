@@ -12,21 +12,17 @@
                     </div>
                 </div>
                 <div>
-                    <h4><?php /*if(isset($_SESSION['edit_self']))
-                                {
-                                    $_SESSION['firstname'] = $_SESSION['edit_self_firstname'];
-                                    $_SESSION['lastname'] = $_SESSION['edit_self_lastname'];
-                                    $_SESSION['email'] = $_SESSION['edit_self_email'];
-                                    $_SESSION['workspace_role'] = $_SESSION['edit_self_workspace_role'];
-                                    $_SESSION['bagdeuse_role'] = $_SESSION['edit_self_badgeuse_role'];
-                                    $_SESSION['inventory_role'] = $_SESSION['edit_self_inventory_role'];
-                                    $_SESSION['form_role'] = $_SESSION['edit_self_form_role'];
-                                    unset($_SESSION['edit_self']);
-                                }*/
-                                
-                                $firstname = $_SESSION['firstname'];
-                                $lastname = $_SESSION['lastname'];
-                                $role = $_SESSION['workspace_role'];
+                    <h4><?php if (isset($_SESSION['edit_self'])) {
+                                    $firstname = $_SESSION['edit_self_firstname'];
+                                    $lastname = $_SESSION['edit_self_lastname'];
+                                    $role = $_SESSION['edit_self_workspace_role'];
+                    } else {
+
+
+                        $firstname = $_SESSION['firstname'];
+                        $lastname = $_SESSION['lastname'];
+                        $role = $_SESSION['workspace_role'];
+                    }
                                 if ($role == 1000)
                                     $role_display = 'Admin';
                                 else if ($role == 3)
