@@ -1,12 +1,13 @@
 <?php
 session_start();
-include('../functions/function_timer.php');
+if ($_SESSION['workspace'] == true) {
+include('function_timer.php');
 if(!isset($_SESSION['timer']))
 {
     setTimer();
 };
 timer();
-include('../config/status.php');
+include('config/status.php');
     
         ?>
         <html lang="fr">
@@ -16,7 +17,7 @@ include('../config/status.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workspace by ContactMedia | Dashboard</title>
     <!-- CSS -->
-    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@40,500,0,-25" />
     <link rel="stylesheet"
@@ -25,7 +26,7 @@ include('../config/status.php');
 
 <body>
     <!-- NAVIGATION -->
-    <?php include ('../config/header.php') ?>
+    <?php include ('header.php') ?>
     <!-- END NAVIGATION -->
     <!-- MAIN -->
     <main>
@@ -36,28 +37,16 @@ include('../config/status.php');
             </button>
 
             <!-- SIDEBAR -->
-            <div style="display: <?php echo $status_sidebar2 ?> "class="sidebar"></div>
-            <div style="display: <?php echo $status_sidebar ?>;" class="sidebar">
-                <a href="workspace_admin.php" class="active">
-                    <span class="material-symbols-sharp">dashboard</span>
-                    <h4>Accueil</h4>
-                </a>
-                <a href="../admin/management_admin.php">
-                    <span class="material-symbols-sharp">admin_panel_settings</span>
-                    <h4>Administrateurs</h4>
-                </a>
-                <a href="../admin/management.php">
-                    <span class="material-symbols-sharp">supervisor_account</span>
-                    <h4>Utilisateurs</h4>
-                </a>
-            </div>
-            <div class="account">
-                <span class="material-symbols-sharp">badge</span>
-                <a href="account.php">
-                    <h4>Accès Compte</h4>
-                </a>
-            </div>
+            <?php
+                $status_welcome = "active";
+                $status_admin = "";
+                $status_user = ""; 
+            $link = "workspace_admin.php";
+    $link2 = "management.php";
+    $link3 = "management_admin.php";
+    $link4 = "account.php";
 
+             include('sidebar.php')?>
             <!-- END SIDEBAR -->
 
         </aside>
@@ -76,7 +65,7 @@ include('../config/status.php');
                         <div class="left">
                             <h2>Accéder à cette Espace</h2>
                         </div>
-                        <img src="../assets/img/profile_picture.png" alt="" class="right">
+                        <img src="assets/img/profile_picture.png" alt="" class="right">
                     </div>
                     <div class="middle">
                         <h2>BADGEUSE</h2>
@@ -95,12 +84,12 @@ include('../config/status.php');
                 </div>
                 <!-- END OF CARD 01 -->
                 <!-- CARD 02 -->
-                <div class="card" onclick="location.href='../config/conn_form.php'">
+                <div class="card" onclick="location.href='conn_form.php'">
                     <div class="top">
                         <div class="left">
                             <h2>Accéder à cette Espace</h2>
                         </div>
-                        <img src="../assets/img/profile_picture.png" alt="" class="right">
+                        <img src="assets/img/profile_picture.png" alt="" class="right">
                     </div>
                     <div class="middle">
                         <h2>SUIVI DES OPERATIONS</h2>
@@ -124,7 +113,7 @@ include('../config/status.php');
                         <div class="left">
                             <h2>Accéder à cette Espace</h2>
                         </div>
-                        <img src="../assets/img/profile_picture.png" alt="" class="right">
+                        <img src="assets/img/profile_picture.png" alt="" class="right">
                     </div>
                     <div class="middle">
                         <h2>INVENTAIRE</h2>
@@ -148,7 +137,7 @@ include('../config/status.php');
                         <div class="left">
                             <h2>Accéder à cette Espace</h2>
                         </div>
-                        <img src="../assets/img/profile_picture.png" alt="" class="right">
+                        <img src="assets/img/profile_picture.png" alt="" class="right">
                     </div>
                     <div class="middle">
                         <h2>TICKETING</h2>
@@ -175,10 +164,11 @@ include('../config/status.php');
     <!-- END OF MAIN -->
 
     <!-- JS -->
-    <script src="../assets/js/main.js"></script>
+    <script src="assets/js/main.js"></script>
 
 </body>
 
 </html>
     
-        
+<?php } else
+    header('Location: index.php');   

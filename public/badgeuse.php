@@ -12,6 +12,9 @@
         <?php
 
         session_start();
+        if ($_SESSION['workspace'] == true) {
         $user = $_SESSION['name'];
         echo "Bonjour $user, bienvenue sur la badgeuse";
+    } else
+    header('Location: index.php');
         ?>

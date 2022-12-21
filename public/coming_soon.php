@@ -1,5 +1,14 @@
+<?php
+session_start();
+if ($_SESSION['workspace'] = true) {
+include('function_timer.php');
+if(!isset($_SESSION['timer']))
+{
+    setTimer();
+};
+timer();?>
 <html>
-    <head><link rel="stylesheet" href="../local/coming_soon.css"></head>
+    <head><link rel="stylesheet" href="assets/css/coming_soon.css"></head>
 
       <body>
       <div class="container">
@@ -16,10 +25,5 @@
 </body>
 </html>
 <?php
-session_start();
-include('../functions/function_timer.php');
-if(!isset($_SESSION['timer']))
-{
-    setTimer();
-};
-timer();
+} else
+header('Location: index.php');

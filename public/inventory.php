@@ -1,6 +1,7 @@
 <?php
 session_start();
-include('../functions/function_timer.php');
+if ($_SESSION['workspace'] == true) {
+include('function_timer.php');
 if(!isset($_SESSION['timer']))
 {
     setTimer();
@@ -8,3 +9,5 @@ if(!isset($_SESSION['timer']))
 timer(); echo "Bienvenue sur l'inventaire";
 ?><br><br>
 <a href="wokspace_admin.php">Retour au workspace</a>
+<?php } else
+    header('Location: index.php');
