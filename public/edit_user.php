@@ -27,6 +27,7 @@ if ($_SESSION['workspace'] == true) {
             $_SESSION['edit_self_badgeuse_role'] = $_SESSION['get_badgeuse_role'];
             $_SESSION['edit_self_form_role'] = $_SESSION['get_form_role'];
             $_SESSION['edit_self_inventory_role'] = $_SESSION['get_inventory_role'];
+            $_SESSION['edit_self_ticketing_role_role'] = $_SESSION['get_ticketing_role'];
             $_SESSION['edit_self_email'] = $_SESSION['get_email'];
         }
         if ($_SESSION['email'] != $_SESSION['get_email'] && isset($_POST['firstname'])) {
@@ -37,6 +38,7 @@ if ($_SESSION['workspace'] == true) {
             unset($_SESSION['edit_self_workspace_role']);
             unset($_SESSION['edit_self_form_role']);
             unset($_SESSION['edit_self_inventory_role']);
+            unset($_SESSION['edit_self_ticketing_role']);
             unset($_SESSION['edit_self_email']);
         }
         itoa();
@@ -100,6 +102,15 @@ if ($_SESSION['workspace'] == true) {
                 <label><b>Role inventaire</b></label>
                 <select name="inventory_role">
                     <option value="<?php echo $_SESSION['get_inventory_role'] ?>" selected><?php echo $_SESSION['get_inventory_role'] ?></option>
+                    <option style="display: <?php echo $status ?>;" value="admin">Admin</option>
+                    <option value="user">Utilisateur</option>
+                    <option value="NULL">NULL</option>
+
+                </select>
+                <br><br>
+                <label><b>Role ticketing</b></label>
+                <select name="ticketing_role">
+                    <option value="<?php echo $_SESSION['get_ticketing_role'] ?>" selected><?php echo $_SESSION['get_ticketing_role'] ?></option>
                     <option style="display: <?php echo $status ?>;" value="admin">Admin</option>
                     <option value="user">Utilisateur</option>
                     <option value="NULL">NULL</option>

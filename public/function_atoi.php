@@ -83,6 +83,28 @@ function atoi()
             $_SESSION['get_inventory_role'] = 'NULL';
 
         }
+
+        if($_POST['ticketing_role'] == 'user' || $_POST['ticketing_role'] == 'Utilisateur')
+        {
+            $_POST['ticketing_role'] = '1';
+            $_SESSION['get_inventory_role'] = 'Utilisateur';
+
+        }elseif($_POST['ticketing_role'] == 'admin' || $_POST['ticketing_role'] == 'Admin')
+        {
+            $_POST['ticketing_role'] = '1000';
+            $_SESSION['get_ticketing_role'] = 'Admin';
+
+        }
+        elseif($_POST['ticketing_role'] == 'NULL')
+        {
+            $_POST['ticketing_role'] = '0';
+            $_SESSION['get_ticketing_role'] = 'NULL';
+
+        }else{
+            $_POST['ticketing_role'] = "0";
+            $_SESSION['get_ticketing_role'] = 'NULL';
+
+        }
     }
 }
 atoi();

@@ -12,12 +12,15 @@ function delUser(){
     email_id = '" . $id . "'";
     $req4 = "DELETE FROM roles where 
     email_id = '" . $id . "'";
+    $req5 = "DELETE FROM ticketing where 
+    email_id = '" . $id . "'";
     //$req5 = "DELETE FROM badgeuse where 
     //id = '" . $id . "'";
     mysqli_query($db, $req);
     mysqli_query($db, $req2);
     mysqli_query($db, $req3);
     mysqli_query($db, $req4);
+    mysqli_query($db, $req5);
     //$exec_req5 = mysqli_query($db, $req)5;
     $_SESSION['modif_type'] ='deleted';
 }
@@ -30,9 +33,10 @@ $workspace_role = $_SESSION['get_workspace_role'];
 $badgeuse_role = $_SESSION['get_badgeuse_role'];
 $inventory_role = $_SESSION['get_inventory_role'];
 $form_role = $_SESSION['get_form_role'];
+$form_role = $_SESSION['get_ticketing_role'];
 $email_id = $_SESSION['user_id_edit'];
 delUser();
 include('function_log.php');
-sendLog(initLog($email_id, $lastname, $firstname, $email, $workspace_role, $badgeuse_role, $inventory_role, $form_role));
+//sendLog(initLog($email_id, $lastname, $firstname, $email, $workspace_role, $badgeuse_role, $inventory_role, $form_role));
 $link = $_SESSION['del_link'];
 header("Location: $link");

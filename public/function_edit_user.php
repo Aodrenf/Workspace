@@ -42,11 +42,13 @@ function editUser()
           $workspace_role = $_POST['workspace_role'];
           $form_role = $_POST['form_role'];
           $inventory_role = $_POST['inventory_role'];
+          $ticketing_role = $_POST['ticketing_role'];
         } else {
           $badgeuse_role = "";
           $workspace_role = "";
           $form_role = "";
           $inventory_role = "";
+          $ticketing_role = "";
 
         }
         try {
@@ -194,6 +196,19 @@ function editUser()
 
           /////////////////////////////////////////////////////////////////////////////
 
+          if ($ticketing_role != "") {
+            //On prépare la requête et on l'exécute
+            $sth6 = $dbco->prepare("
+                UPDATE roles
+                SET ticketing_role = '$ticketing_role'
+                WHERE email_id='$email_id'
+              ");
+            $sth6->execute();
+
+          }
+
+          /////////////////////////////////////////////////////////////////////////////
+
           if ($inventory_role != "") {
             //On prépare la requête et on l'exécute
             $sth7 = $dbco->prepare("
@@ -202,7 +217,8 @@ function editUser()
                 WHERE email_id='$email_id'
               ");
             $sth7->execute();
-            include('function_log.php');
+            
+            //include('function_log.php');
             $_SESSION['modif_type'] = 'edited';
             //sendLog(initLog($email_id, $nom, $prenom, $email, $workspace_role, $badgeuse_role, $inventory_role, $form_role));
             

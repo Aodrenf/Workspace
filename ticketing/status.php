@@ -1,4 +1,9 @@
 <?php
+//
+// On defini ici l'affichage des coordonnées rattachées aux personnes
+//
+
+// mettre a jour les coordonnées si l'admin vient de s'auto-edit
 if(isset($_SESSION['edit_self_firstname']))
 {
     $firstname = $_SESSION['edit_self_firstname'];
@@ -7,7 +12,6 @@ if(isset($_SESSION['edit_self_firstname']))
     $form_role = $_SESSION['edit_self_form_role'];
     $badgeuse_role = $_SESSION['edit_self_badgeuse_role'];
     $inventory_role = $_SESSION['edit_self_inventory_role'];
-    $ticketing_role = $_SESSION['edit_self_ticketing_role'];
 }else{
     $firstname = $_SESSION['firstname'];
 $lastname = $_SESSION['lastname'];
@@ -15,7 +19,6 @@ $workspace_role = $_SESSION['workspace_role'];
 $form_role = $_SESSION['form_role'];
 $badgeuse_role = $_SESSION['badgeuse_role'];
 $inventory_role = $_SESSION['inventory_role'];
-$ticketing_role = $_SESSION['ticketing_role'];
 }
 
 

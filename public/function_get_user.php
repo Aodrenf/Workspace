@@ -19,5 +19,6 @@ function getUser($email_id)
         $_SESSION['get_inventory_role'] = $rep2['inventory_role'];
         $_SESSION['get_form_role'] = $rep2['form_role'];
         $_SESSION['get_workspace_role'] = $rep2['workspace_role'];
+        $_SESSION['get_ticketing_role'] = $rep2['ticketing_role'];
 
 }

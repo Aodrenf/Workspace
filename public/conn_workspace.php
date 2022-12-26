@@ -64,6 +64,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
       $inventory_role = $rep_role['inventory_role'];
       $badgeuse_role = $rep_role['badgeuse_role'];
       $form_role = $rep_role['form_role'];
+      $ticketing_role = $rep_role['ticketing_role'];
 
 
       if ($count_inventory != 0){
@@ -79,8 +80,11 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
       $_SESSION['inventory_role'] = $inventory_role;
       $_SESSION['badgeuse_role'] = $badgeuse_role;
       $_SESSION['form_role'] = $form_role;
+      $_SESSION['ticketing_role'] = $ticketing_role;
       $_SESSION['workspace'] = true;
       //$_SESSION['id_user']
+      include('function_log_connexion.php');
+      logConn();
       if ($_SESSION['workspace_role'] == '1000' || $_SESSION['workspace_role'] == '1' || $_SESSION['workspace_role'] == '3') {
        header('Location: workspace_admin.php');
       } else echo "role inconnu"; var_dump($_SESSION);

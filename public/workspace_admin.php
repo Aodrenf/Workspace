@@ -132,7 +132,7 @@ include('config/status.php');
                 </div>
                 <!-- END OF CARD 03 -->
                 <!-- CARD 04 -->
-                <div style="display: <?php echo $status_ticketing ?>" onclick="location.href='coming_soon.php'" class="card">
+                <div style="display: <?php echo $status_ticketing ?>" onclick="location.href='../ticketing/conn_ticketing.php'" class="card">
                     <div class="top">
                         <div class="left">
                             <h2>Accéder à cette Espace</h2>

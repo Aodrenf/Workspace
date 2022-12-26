@@ -54,6 +54,14 @@ if ($_SESSION['workspace'] == true) {
 
     </select>
     <br>
+    <label><b>Role ticketing</b></label>
+    <select name="ticketing_role">
+        <option value="admin">Admin</option>
+        <option value="user" >User</option>
+        <option value="NULL" selected>NULL</option>
+
+    </select>
+    <br>
     <input type="submit" id='create_user' value='create_user'>
 </form>
     <br><br>

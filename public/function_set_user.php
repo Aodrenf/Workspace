@@ -19,6 +19,7 @@ function setUser()
       $workspace_role = $_POST['workspace_role'];
       $form_role = $_POST['form_role'];
       $inventory_role = $_POST['inventory_role'];
+      $ticketing_role = $_POST['ticketing_role'];
       $pwd = $_POST['password'];
       $pwd = hash_pwd($pwd);
 
@@ -58,6 +59,15 @@ function setUser()
         $inventory_role = 0;
       } else
         $inventory_role = 0;
+
+      if ($ticketing_role == 'admin') {
+        $ticketing_role = 1000;
+      } elseif ($ticketing_role == 'user') {
+        $ticketing_role = 1;
+      } elseif ($ticketing_role == 'NULL') {
+        $ticketing_role = 0;
+      } else
+        $ticketing_role = 0;
 
       try {
         include('config/env.php');
@@ -105,10 +115,21 @@ function setUser()
         $sth3->bindParam(':password', $pwd);
         $sth3->execute();
 
+        // on insere dans inventory
+        $sth5 = $dbco->prepare("
+    INSERT INTO ticketing (email_id, email, password)
+    VALUES (:email_id, :email, :password) 
+  ");
+
+        $sth5->bindParam(':email_id', $email_id);
+        $sth5->bindParam(':email', $email);
+        $sth5->bindParam(':password', $pwd);
+        $sth5->execute();
+
         // on insere dans role
         $sth4 = $dbco->prepare("
-    INSERT INTO roles (email_id, badgeuse_role, workspace_role, form_role, inventory_role)
-    VALUES (:email_id, :badgeuse_role, :workspace_role, :form_role, :inventory_role) 
+    INSERT INTO roles (email_id, badgeuse_role, workspace_role, form_role, inventory_role, ticketing_role)
+    VALUES (:email_id, :badgeuse_role, :workspace_role, :form_role, :inventory_role, :ticketing_role) 
   ");
 
         $sth4->bindParam(':email_id', $email_id);
@@ -116,6 +137,7 @@ function setUser()
         $sth4->bindParam('workspace_role', $workspace_role);
         $sth4->bindParam(':form_role', $form_role);
         $sth4->bindParam(':inventory_role', $inventory_role);
+        $sth4->bindParam(':ticketing_role', $ticketing_role);
         $sth4->execute();
 
 
@@ -126,7 +148,7 @@ function setUser()
       }
       $_SESSION['modif_type'] = 'created';
       include('function_log.php');
-      sendLog(initLog($email_id, $nom, $prenom, $email, $workspace_role, $badgeuse_role, $inventory_role, $form_role));
+      //sendLog(initLog($email_id, $nom, $prenom, $email, $workspace_role, $badgeuse_role, $inventory_role, $form_role));
     } else{
       echo "l'email existe déja";}
       $_SESSION['modif_type'] ='created';

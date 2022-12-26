@@ -41,4 +41,14 @@ function itoa()
     } else {
         $_SESSION['get_inventory_role'] = "inconnu";
     }
+
+    if ($_SESSION['get_ticketing_role'] == 1 || $_SESSION['get_ticketing_role'] == 'Utilisateur') {
+        $_SESSION['get_ticketing_role'] = 'Utilisateur';
+    } elseif ($_SESSION['get_ticketing_role'] == 1000 || $_SESSION['get_ticketing_role'] == 'Admin') {
+        $_SESSION['get_ticketing_role'] = 'Admin';
+    }elseif ($_SESSION['get_ticketing_role'] == 0 || $_SESSION['get_ticketing_role'] == 'NULL') {
+        $_SESSION['get_ticketing_role'] = 'NULL';
+    } else {
+        $_SESSION['get_ticketing_role'] = "inconnu";
+    }
 }

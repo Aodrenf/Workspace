@@ -52,11 +52,11 @@ function sendLog($log)
 
         // on insere dans la table log les logs
         $sth = $dbco->prepare("
-    INSERT INTO log (log)
-    VALUES (:log) 
+    INSERT INTO log (log_modif)
+    VALUES (:log_modif v ) 
   ");
 
-        $sth->bindParam(':log', $log);
+        $sth->bindParam(':log_modif', $log);
         $sth->execute();
           } catch (PDOException $e) {
         echo "Erreur : " . $e->getMessage();
