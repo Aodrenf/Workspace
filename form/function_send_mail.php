@@ -6,7 +6,7 @@
     use PHPMailer\PHPMailer\Exception;
     
     //Load Composer's autoloader
-    require 'config/vendor/autoload.php';
+    require '../public/config/vendor/autoload.php';
     
     //Create an instance; passing `true` enables exceptions
 function sendMail()
@@ -37,7 +37,7 @@ function sendMail()
         //Recipients
         $mail->setFrom('workspace@contactmedia.fr');
         $mail->addAddress('aodren.f@contactmedia.fr'); //Add a recipient
-        //$mail->addAddress('informatique@contactmedia.fr');               //Name is optional
+        $mail->addAddress('informatique@contactmedia.fr');               //Name is optional
 
         //Attachments
         //$mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
@@ -46,7 +46,7 @@ function sendMail()
         //Content
         $mail->isHTML(true); //Set email format to HTML
         $mail->Subject = 'Formulaire des TA';
-        $mail->Body = "Email : $email<br>Nom : $lastname<br>Pr&eacutenon : $firstname<br>Operation : $operation<br>Horodatage : $timestamp<br>Commentaires n&eacutegatifs : $negative_feedback<br>Commentaires positifs : $positive_feedback<br>";
+        $mail->Body = "Email : $email<br>Nom : $lastname<br>Pr&eacutenom : $firstname<br>Operation : $operation<br>Horodatage : $timestamp<br>Commentaires n&eacutegatifs : $negative_feedback<br>Commentaires positifs : $positive_feedback<br>";
         //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
         $mail->send();

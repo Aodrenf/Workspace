@@ -1,7 +1,7 @@
 <?php
 function sendForm()
 {
-        include('config/env.php');
+        include('env.php');
         $dbco = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
         $dbco->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         // on defini les variable a entrer dans la table form

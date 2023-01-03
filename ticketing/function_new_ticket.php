@@ -8,10 +8,21 @@ function newTicket()
     $priority = $_POST['priority_ticket'];
     $title = $_POST['title_ticket'];
     $content = $_POST['content_ticket'];
-    $last_modif = $_SESSION['email_id'];
+    $semaine = array(" Dimanche "," Lundi "," Mardi "," Mercredi "," Jeudi ",
+" vendredi "," samedi ");
+$mois =array(1=>" janvier "," février "," mars "," avril "," mai "," juin ",
+" juillet "," août "," septembre "," octobre "," novembre "," décembre ");
+
+    $dt = time();
+    //$date = date("y-m-d", $dt);
+  $last_modif = $semaine[date('w',$dt)] . " " . date('j',$dt) . " " . $mois[date('n',$dt)] . " " . date('Y',$dt) . " " . date('H:i:s',$dt);
     $ticket_type = $_POST['type_ticket'];
-    $attribution = 'aodren';
-    $modif_by = $_SESSION['email_id'];
+    $attribution = '/'; // a revoir
+    $statut = "in_progress";
+    $applicant = $_SESSION['lastname'];
+    $dt = time();
+    $ticket_creation = date("y-m-d", $dt);
+    $modif_by = '/';
     
     try {
         include('../public/config/env.php');
@@ -20,7 +31,7 @@ function newTicket()
 
         // on insere dans users ce qui nous servira pour la suite
         $sth = $dbco->prepare("
-    INSERT INTO ticketing ( type, email_id, category, priority, title, content, status, applicant, ticket_type, last_modif, ticket_creation, attribution, modif_by)
+    INSERT INTO ticketing (type, email_id, category, priority, title, content, status, applicant, ticket_type, last_modif, ticket_creation, attribution, modif_by)
     VALUES (:type, :email_id, :category, :priority, :title, :content, :status, :applicant, :ticket_type, :last_modif, :ticket_creation, :attribution, :modif_by) 
   ");
         $sth->bindParam(':type', $type);
@@ -29,7 +40,7 @@ function newTicket()
         $sth->bindParam(':priority', $priority);
         $sth->bindParam(':title', $title);
         $sth->bindParam(':content', $content);
-        $sth->bindParam(':statut', $statut);
+        $sth->bindParam(':status', $statut);
         $sth->bindParam(':applicant', $applicant);
         $sth->bindParam(':ticket_type', $ticket_type);
         $sth->bindParam(':last_modif', $last_modif);
@@ -37,8 +48,11 @@ function newTicket()
         $sth->bindParam(':attribution', $attribution);
         $sth->bindParam(':modif_by', $modif_by);
         $sth->execute();
-        echo "Parfait, tout s'est bien passé";
+      $var = '<script language=javascript>
+      alert(\'Votre ticket a bien été créer, nous y répondrons dans les plus brefs delais \');
+   </script> ';
       } catch (PDOException $e) {
         echo "Erreur : " . $e->getMessage();
       }
+    return $var;
 }

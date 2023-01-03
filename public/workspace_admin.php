@@ -7,8 +7,8 @@ if(!isset($_SESSION['timer']))
     setTimer();
 };
 timer();
-include('config/status.php');
-    
+
+    include('config/status.php');
         ?>
         <html lang="fr">
 <head>
@@ -46,7 +46,9 @@ include('config/status.php');
     $link3 = "management_admin.php";
     $link4 = "account.php";
 
-             include('sidebar.php')?>
+    include('sidebar.php');
+             
+             ;?>
             <!-- END SIDEBAR -->
 
         </aside>
@@ -60,7 +62,7 @@ include('config/status.php');
             <!-- CARDS -->
             <div class="cards">
                 <!-- CARD 01 -->
-                <div class="card" onclick="location.href='coming_soon.php'">
+                <div target ="_blank" class="card" onclick="window.open('https:\/\/contactmedia.badgeuse.app\/')">
                     <div class="top">
                         <div class="left">
                             <h2>Accéder à cette Espace</h2>

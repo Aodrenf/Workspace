@@ -25,17 +25,14 @@ $inventory_role = $_SESSION['inventory_role'];
 if ($workspace_role == 1000 || $workspace_role == 'Admin')
 {
     $workspace_role = 'Admin';
-    $status_ticketing = 'true';
     $status_sidebar = 'true';
     $status_sidebar2 = 'none';
-    $ticketing_role = 'Admin';
     $status_modif_info = "";
     $status_sidebar_admin = "true";
 }
 else if ($workspace_role == 3 || $workspace_role == 'Responsable')
 {
     $workspace_role = 'Responsable';
-    $status_ticketing = 'true';
     $status_sidebar = 'true';
     $status_sidebar2 = 'none';
     $ticketing_role = 'Utilisateur';
@@ -45,10 +42,8 @@ else if ($workspace_role == 3 || $workspace_role == 'Responsable')
 else
 {
     $workspace_role = 'Utilisateur';
-    $status_ticketing = 'none';
     $status_sidebar = 'none';
     $status_sidebar2 = 'true';
-    $ticketing_role = 'Utilisateur';
     $status_modif_info = "disabled  ";
 
 }

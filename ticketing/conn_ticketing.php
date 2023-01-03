@@ -61,11 +61,15 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
       $ticketing_role = $rep2['ticketing_role'];
 
       
-// on verifie si la personne existe dans la db de l'inventaire
+// on verifie si la personne existe dans la db de lu ticketing
     if ($count != 0) {
       $_SESSION['ticketing_role'] = $ticketing_role;
       $_SESSION['ticketing'] = true;
-      header('Location: ../ticketing/ticketing.php');
+      if ($_SESSION['ticketing_role'] == 1000)
+      {
+        header('Location: ../ticketing/ticketing.php');
+      } else  header('Location: ../ticketing/my_tickets.php');
+     
     } else {
 
 
@@ -82,7 +86,10 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 else if( ($_SESSION['workspace']) == true){
     if(isset($_SESSION['ticketing_role']))
     {
-     header('Location: ../ticketing/ticketing.php');
+      if ($_SESSION['ticketing_role'] == 1000)
+      {
+        header('Location: ../ticketing/ticketing.php');
+      } else  header('Location: ../ticketing/my_tickets.php');
     }
 } else
   header('Location: ../public/wokspace_admin.php');

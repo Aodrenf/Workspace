@@ -68,7 +68,7 @@ include('status.php');
         <!-- MIDDLE -->
         <section class="middle">
             <div class="header">
-                <h1><span class="material-symbols-sharp">supervisor_account</span>Ticketing - Accueil</h1>
+                <h1><span class="material-symbols-sharp">supervisor_account</span>Ticketing - Tickets résolus</h1>
             </div>
             <!-- LIST ADMIN -->
             <div class="admin-user">
@@ -90,22 +90,22 @@ include('status.php');
                         <?php
 
     include_once('function_connect.php');
-    $stmt = $sql->prepare("SELECT * FROM ticketing WHERE status = 'in_progress' or status = 'resolved' ORDER BY `id` DESC");
+    $stmt = $sql->prepare("SELECT * FROM ticketing WHERE status = 'resolved' ORDER BY `id` DESC");
     $stmt->execute();
     $tickets = $stmt->fetchAll();
     foreach ($tickets as $ticket) {
-                            include('ticketing_display.php');
-                        ?>
-                         <tr>
-                             <td><b><?php echo $ticket['id']; ?></b></td>
-                             <td><?php echo $ticket['title']; ?></td>
-                             <td><?php echo $status_display ?></td>
-                             <td><?php echo $ticket_applicant; ?></td>
-                             <td><?php echo $ticket['last_modif']; ?></td>
-                             <td><?php echo $ticket['ticket_creation']; ?></td>
-                             <td><?php echo $ticket_priority; ?></td>
-                             <td><?php echo $ticket_attribution; ?></td>
-                             <td><?php echo $ticket_modif_by; ?></td>
+        include('ticketing_display.php');
+        ?>
+         <tr>
+         <td><b><?php echo $ticket['id']; ?></b></td>
+             <td><?php echo $ticket['title']; ?></td>
+             <td><?php echo $status_display ?></td>
+             <td><?php echo $ticket_applicant; ?></td>
+             <td><?php echo $ticket['last_modif']; ?></td>
+             <td><?php echo $ticket['ticket_creation']; ?></td>
+             <td><?php echo $ticket_priority; ?></td>
+             <td><?php echo $ticket_attribution; ?></td>
+             <td><?php echo $ticket_modif_by; ?></td>
                              
                              <td>
                              <form method="post">

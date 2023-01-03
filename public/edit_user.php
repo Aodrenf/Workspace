@@ -27,7 +27,7 @@ if ($_SESSION['workspace'] == true) {
             $_SESSION['edit_self_badgeuse_role'] = $_SESSION['get_badgeuse_role'];
             $_SESSION['edit_self_form_role'] = $_SESSION['get_form_role'];
             $_SESSION['edit_self_inventory_role'] = $_SESSION['get_inventory_role'];
-            $_SESSION['edit_self_ticketing_role_role'] = $_SESSION['get_ticketing_role'];
+            $_SESSION['edit_self_ticketing_role'] = $_SESSION['get_ticketing_role'];
             $_SESSION['edit_self_email'] = $_SESSION['get_email'];
         }
         if ($_SESSION['email'] != $_SESSION['get_email'] && isset($_POST['firstname'])) {

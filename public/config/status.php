@@ -22,30 +22,24 @@ $ticketing_role = $_SESSION['ticketing_role'];
 if ($workspace_role == 1000 || $workspace_role == 'Admin')
 {
     $workspace_role = 'Admin';
-    $status_ticketing = 'true';
     $status_sidebar = 'true';
     $status_sidebar2 = 'none';
-    $ticketing_role = 'Admin';
     $status_modif_info = "";
     $status_sidebar_admin = "true";
 }
 else if ($workspace_role == 3 || $workspace_role == 'Responsable')
 {
     $workspace_role = 'Responsable';
-    $status_ticketing = 'true';
     $status_sidebar = 'true';
     $status_sidebar2 = 'none';
-    $ticketing_role = 'Utilisateur';
     $status_modif_info = "";
     $status_sidebar_admin = "none";
 }
 else
 {
     $workspace_role = 'Utilisateur';
-    $status_ticketing = 'none';
     $status_sidebar = 'none';
     $status_sidebar2 = 'true';
-    $ticketing_role = 'Utilisateur';
     $status_modif_info = "disabled  ";
 
 }
@@ -81,3 +75,27 @@ if ($form_role == 1000 || $form_role == 'Admin')
     $form_role = 'Admin';
 else
     $form_role = 'Utilisateur';
+
+///////////////////////////////////////////////////////
+
+if ($ticketing_role == 'Admin' || $ticketing_role == '1000') {
+    $ticketing_role = 'Admin';
+    $status_ticketing = 'true';
+    $status_ticketing_admin = 'true';
+}elseif($ticketing_role == 'NULL' || $ticketing_role == '0')
+{
+    $ticketing_role = 'NULL';
+    $status_ticketing = 'none';
+    $status_ticketing_admin = 'none';
+}elseif($ticketing_role == 'Utilisateur' || $ticketing_role == '1')
+{
+    $ticketing_role = 'Utilisateur';
+    $status_ticketing = 'true';
+    $status_ticketing_admin = 'none';
+}
+else
+{
+    $ticketing_role = 'NULL';
+    $status_ticketing = 'none';
+    $status_ticketing_admin = 'none';
+}

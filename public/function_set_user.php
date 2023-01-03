@@ -115,15 +115,16 @@ function setUser()
         $sth3->bindParam(':password', $pwd);
         $sth3->execute();
 
-        // on insere dans inventory
+        // on insere dans ticketing
         $sth5 = $dbco->prepare("
-    INSERT INTO ticketing (email_id, email, password)
-    VALUES (:email_id, :email, :password) 
+    INSERT INTO ticketing (type, email_id, email, password)
+    VALUES (:type, :email_id, :email, :password) 
   ");
 
         $sth5->bindParam(':email_id', $email_id);
         $sth5->bindParam(':email', $email);
         $sth5->bindParam(':password', $pwd);
+        $sth5->bindParam(':type', $type);
         $sth5->execute();
 
         // on insere dans role

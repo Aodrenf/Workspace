@@ -68,7 +68,7 @@ include('status.php');
         <!-- MIDDLE -->
         <section class="middle">
             <div class="header">
-                <h1><span class="material-symbols-sharp">supervisor_account</span>Ticketing - Accueil</h1>
+                <h1><span class="material-symbols-sharp">supervisor_account</span>Ticketing - Mes tickets</h1>
             </div>
             <!-- LIST ADMIN -->
             <div class="admin-user">
@@ -88,16 +88,16 @@ include('status.php');
                     </thead>
                     <tbody>
                         <?php
-
+    $email_id = $_SESSION['email_id'];
     include_once('function_connect.php');
-    $stmt = $sql->prepare("SELECT * FROM ticketing WHERE status = 'in_progress' or status = 'resolved' ORDER BY `id` DESC");
+    $stmt = $sql->prepare("SELECT * FROM ticketing WHERE (email_id = '$email_id' or modif_by = '$email_id') and (status = 'resolved' or status = 'in_progress') ORDER BY `id` DESC");
     $stmt->execute();
     $tickets = $stmt->fetchAll();
     foreach ($tickets as $ticket) {
-                            include('ticketing_display.php');
+                        include('ticketing_display.php');
                         ?>
                          <tr>
-                             <td><b><?php echo $ticket['id']; ?></b></td>
+                         <td><b><?php echo $ticket['id']; ?></b></td>
                              <td><?php echo $ticket['title']; ?></td>
                              <td><?php echo $status_display ?></td>
                              <td><?php echo $ticket_applicant; ?></td>
@@ -130,8 +130,7 @@ include('status.php');
 
             <!-- END LIST ADMIN -->
         </section>
-        <a href="create_ticket.php">Création d'un ticket</a>
-        <a href="my_tickets.php">Mes tickets</a>
+        <a href="create_ticket.php">create</a>
         <a style="display: <?php echo $status_ticketing_admin ?>;" href="admin_ticketing.php">partie admin</a>
         <!-- END MIDDLE -->
 
