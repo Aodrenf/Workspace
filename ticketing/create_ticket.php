@@ -64,7 +64,7 @@ if ($_SESSION['workspace'] == true) {
             </div>
             <!-- LIST ADMIN -->
             <div class="admin-user">
-<form action="" method="POST">
+<form action="" method="POST" enctype="multipart/form-data">
     <label><b>Titre</b></label>
     <input type="text" placeholder="Entrer le titre" name="title_ticket" required>
     <br>
@@ -124,6 +124,8 @@ if ($_SESSION['workspace'] == true) {
         <option value="medium">Moyenne</option>
         <option value="low" selected>Faible</option>
     </select>
+    <br>
+    <input type="file" name="monfichier" /><br />
     <br>
     <input type="submit" id='create_ticket' value='create_ticket'>
 </form>

@@ -12,7 +12,6 @@ function newTicket()
 " vendredi "," samedi ");
 $mois =array(1=>" janvier "," février "," mars "," avril "," mai "," juin ",
 " juillet "," août "," septembre "," octobre "," novembre "," décembre ");
-
     $dt = time();
     //$date = date("y-m-d", $dt);
   $last_modif = $semaine[date('w',$dt)] . " " . date('j',$dt) . " " . $mois[date('n',$dt)] . " " . date('Y',$dt) . " " . date('H:i:s',$dt);
@@ -23,6 +22,36 @@ $mois =array(1=>" janvier "," février "," mars "," avril "," mai "," juin ",
     $dt = time();
     $ticket_creation = date("y-m-d", $dt);
     $modif_by = '/';
+
+    if (isset($_FILES['monfichier']) AND $_FILES['monfichier']['error'] == 0)
+
+{
+
+        // Testons si le fichier n'est pas trop gros
+
+        if ($_FILES['monfichier']['size'] <= 1000000)
+
+        {
+
+                // Testons si l'extension est autorisée
+
+                $infosfichier = pathinfo($_FILES['monfichier']['name']);
+
+                $extension_upload = $infosfichier['extension'];
+
+                $extensions_autorisees = array('apng','APNG', 'pjpeg', 'PJPEG', 'svg', 'SVG', 'webp', 'WEBP', 'pjp', 'PJP', 'jpg', 'JPG', 'jpeg', 'JPEG', 'gif', 'GIF', 'png', 'PNG', 'pdf', 'PDF', 'md', 'txt');
+
+                if (in_array($extension_upload, $extensions_autorisees))
+
+                {
+        $path = 'uploads/' . rand(1, 100000) . '_' . $_FILES['monfichier']['name'];
+                  move_uploaded_file($_FILES['monfichier']['tmp_name'],'uploads/' . basename(rand(1,100000) . '_' . $_FILES['monfichier']['name']));
+
+                }
+
+        }
+
+}
     
     try {
         include('../public/config/env.php');
@@ -31,8 +60,8 @@ $mois =array(1=>" janvier "," février "," mars "," avril "," mai "," juin ",
 
         // on insere dans users ce qui nous servira pour la suite
         $sth = $dbco->prepare("
-    INSERT INTO ticketing (type, email_id, category, priority, title, content, status, applicant, ticket_type, last_modif, ticket_creation, attribution, modif_by)
-    VALUES (:type, :email_id, :category, :priority, :title, :content, :status, :applicant, :ticket_type, :last_modif, :ticket_creation, :attribution, :modif_by) 
+    INSERT INTO ticketing (type, email_id, category, priority, title, content, status, applicant, ticket_type, last_modif, ticket_creation, attribution, modif_by, path)
+    VALUES (:type, :email_id, :category, :priority, :title, :content, :status, :applicant, :ticket_type, :last_modif, :ticket_creation, :attribution, :modif_by, :path) 
   ");
         $sth->bindParam(':type', $type);
         $sth->bindParam(':email_id', $email_id);
@@ -47,6 +76,7 @@ $mois =array(1=>" janvier "," février "," mars "," avril "," mai "," juin ",
         $sth->bindParam(':ticket_creation', $ticket_creation);
         $sth->bindParam(':attribution', $attribution);
         $sth->bindParam(':modif_by', $modif_by);
+        $sth->bindParam(':path', $path);
         $sth->execute();
       $var = '<script language=javascript>
       alert(\'Votre ticket a bien été créer, nous y répondrons dans les plus brefs delais \');
